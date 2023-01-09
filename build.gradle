@@ -1,0 +1,41 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+dependencies {
+    testImplementation (
+            'org.aspectj:aspectjweaver:1.9.19',
+            'com.codeborne:selenide:6.10.3',
+            'io.qameta.allure:allure-selenide:2.20.0',
+            'org.assertj:assertj-core:3.23.1',
+            "org.junit.jupiter:junit-jupiter:5.9.1",
+    )
+
+    testRuntimeOnly (
+            "org.junit.jupiter:junit-jupiter-engine:5.9.1",
+            'org.slf4j:slf4j-simple:2.0.5'
+    )
+}
+
+tasks.withType(Test) {
+    systemProperties(System.getProperties())
+    useJUnitPlatform()
+}
